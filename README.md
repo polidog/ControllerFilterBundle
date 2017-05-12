@@ -29,7 +29,7 @@ public function registerBundles()
 ```
 /**
  * @Route("/card")
- * @Filter(Filter::TYPE_BEFORE, method="test")
+ * @Filter(Filter::TYPE_BEFORE, method="checkSession")
  */
 class CardController extends Controller
 {
@@ -39,24 +39,21 @@ class CardController extends Controller
      * @Route("/")
      * @Method("GET")
      * @Template()
-     * @Filter(Filter::TYPE_AFTER, method="test2")
+     * @Filter(Filter::TYPE_AFTER, method="changeResult")
      */
     public function indexAction(Request $request)
     {
-        if ($this->hasSession()) {
-
-        }
         return ['hoge' =>'fuga'];
     }
 
-    public function test($event)
+    public function checkSession($event)
     {
         if ($this->hasSession()) {
             throw new \Exception();
         }    
     }
 
-    public function test2(GetResponseForControllerResultEvent $event)
+    public function changeResult(GetResponseForControllerResultEvent $event)
     {
         $event->setControllerResult(['hoge' => 'hogehoge']);
     }
