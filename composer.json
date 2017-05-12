@@ -1,0 +1,23 @@
+{
+    "name": "polidog/controller-filter-bundle",
+    "type": "library",
+    "require": {
+        "php": ">=7.0.0",
+        "symfony/symfony": "~2.7|^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Polidog\\ControllerFilterBundle\\": ""
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "polidog",
+            "email": "polidogs@gmail.com"
+        }
+    ]
+}
