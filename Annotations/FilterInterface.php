@@ -26,13 +26,4 @@ interface FilterInterface
      */
     public function getService();
 
-    /**
-     * @return boolean
-     */
-    public function isServiceFilter();
-
-    /**
-     * @return boolean
-     */
-    public function isMethodFilter();
 }

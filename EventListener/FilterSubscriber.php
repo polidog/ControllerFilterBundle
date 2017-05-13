@@ -39,11 +39,6 @@ class FilterSubscriber implements EventSubscriberInterface
     private $controller;
 
     /**
-     * @var \ReflectionClass
-     */
-    private $controllerReflection;
-
-    /**
      * FilterSubscriber constructor.
      * @param Reader $reader
      * @param Executor $executor
@@ -117,11 +112,7 @@ class FilterSubscriber implements EventSubscriberInterface
     private function executeFilter(string $type, FilterInterface $annotation, $controller, KernelEvent $event)
     {
         if ($annotation->getType() === $type) {
-            if ($annotation->isServiceFilter()) {
-                $this->executor->service($annotation, $event);
-            } else if ($annotation->isMethodFilter()) {
-                $this->executor->method($annotation, $controller, $event);
-            }
+            $this->executor->run($annotation, $event);
         }
     }
 

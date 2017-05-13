@@ -76,20 +76,4 @@ final class Filter implements FilterInterface
         return $this->service;
     }
 
-    /**
-     * @return bool
-     */
-    public function isMethodFilter()
-    {
-        return empty($this->service);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isServiceFilter()
-    {
-        return !empty($this->service);
-    }
-
 }

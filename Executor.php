@@ -25,20 +25,10 @@ class Executor
 
     /**
      * @param FilterInterface $filter
-     * @param $object controller object
-     * @return mixed
-     */
-    public function method(FilterInterface $filter, $object, KernelEvent $event)
-    {
-        return call_user_func_array([$object, $filter->getMethod()],[$event]);
-    }
-
-    /**
-     * @param FilterInterface $filter
      * @param Request $request
      * @return mixed
      */
-    public function service(FilterInterface $filter, KernelEvent $event)
+    public function run(FilterInterface $filter, KernelEvent $event)
     {
         return call_user_func_array([$this->container->get($filter->getService()), $filter->getMethod()],[$event]);
     }
