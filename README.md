@@ -27,9 +27,11 @@ public function registerBundles()
 ## Using
 
 ```
+// controller class
+
 /**
  * @Route("/card")
- * @Filter(Filter::TYPE_BEFORE, method="checkSession")
+ * @Filter(Filter::TYPE_BEFORE, method="checkSession", service="app.service.check_service")
  */
 class CardController extends Controller
 {
@@ -39,25 +41,50 @@ class CardController extends Controller
      * @Route("/")
      * @Method("GET")
      * @Template()
-     * @Filter(Filter::TYPE_AFTER, method="changeResult")
+     * @Filter(Filter::TYPE_AFTER, method="changeResult", service="app.service.check_service")
      */
     public function indexAction(Request $request)
     {
         return ['hoge' =>'fuga'];
     }
 
-    public function checkSession($event)
-    {
-        if ($this->hasSession()) {
-            throw new \Exception();
-        }    
-    }
 
+
+}
+
+```
+
+```
+// service class
+class CheckService {
+    /** 
+     * @Session
+     * /
+    private $session;
+    
+    
+    public function changeResult()
+    {
+        if ($this->session->has('hoge') {
+            throw new \Exception();
+        }
+    }
+    
     public function changeResult(GetResponseForControllerResultEvent $event)
     {
         $event->setControllerResult(['hoge' => 'hogehoge']);
-    }
+    }    
 }
+
 ```
 
+```
+// services.yml
+
+services:
+    app.service.check_service:
+        class: AppBundle\Service\CheckService
+        arguments: ["@session"]
+
+```
 
