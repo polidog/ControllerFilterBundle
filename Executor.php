@@ -24,8 +24,17 @@ class Executor
     private $container;
 
     /**
+     * Executor constructor.
+     * @param ContainerInterface $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
+    /**
      * @param FilterInterface $filter
-     * @param Request $request
+     * @param KernelEvent $event
      * @return mixed
      */
     public function run(FilterInterface $filter, KernelEvent $event)
