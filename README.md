@@ -12,7 +12,7 @@ $ composer require polidog/controller-filter-bundle "@dev"
 
 ## Configuration
 
-```
+```php
 // AppKernel.php
 public function registerBundles()
 {
@@ -26,7 +26,7 @@ public function registerBundles()
 
 ## Using
 
-```
+```php
 // controller class
 
 /**
@@ -54,12 +54,12 @@ class CardController extends Controller
 
 ```
 
-```
+```php
 // service class
 class CheckService {
     /** 
      * @Session
-     * /
+     */
     private $session;
     
     
@@ -78,7 +78,7 @@ class CheckService {
 
 ```
 
-```
+```yaml
 // services.yml
 
 services:
