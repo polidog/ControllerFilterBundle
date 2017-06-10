@@ -1,5 +1,7 @@
 # PolidogControllerFilterBundle
 
+[![Build Status](https://travis-ci.org/polidog/ControllerFilterBundle.svg?branch=master)](https://travis-ci.org/polidog/ControllerFilterBundle)
+
 This bundle to allow you to describe filtering with annotations in the Controller class.
 
 ## Install
