@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Event\KernelEvent;
 
 class ExecutorTest extends KernelTestCase
 {
-    public function testRunMock()
+    public function testRun()
     {
         $container = $this->prophesize(ContainerInterface::class);
         $kernelEvent = $this->prophesize(KernelEvent::class);
@@ -33,22 +33,6 @@ class ExecutorTest extends KernelTestCase
         $container->get('executor_dummy')->shouldHaveBeenCalled();
     }
 
-    public function testRun()
-    {
-        self::bootKernel();
-        self::$kernel->getContainer()->set('executor_dummy', new ExecutorDummy());
-        $executor = new Executor(self::$kernel->getContainer());
-        $kernelEvent = $this->prophesize(KernelEvent::class);
-
-        $filter = new Filter([
-            'type' => Filter::TYPE_AFTER,
-            'service' => 'executor_dummy',
-            'method' => 'exec',
-        ]);
-
-        $result = $executor->run($filter, $kernelEvent->reveal());
-        $this->assertEquals(ExecutorDummy::MESSAGE, $result);
-    }
 }
 
 class ExecutorDummy
