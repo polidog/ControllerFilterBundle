@@ -1,0 +1,15 @@
+language: php
+php:
+  - 7.1
+sudo: false
+cache:
+  directories:
+    - $HOME/.composer/cache
+    - vendor
+
+before_script:
+  - composer self-update
+  - composer global require hirak/prestissimo
+  - composer install --no-interaction
+script:
+  - ./vendor/bin/phpunit --coverage-clover=coverage.clover
