@@ -84,6 +84,7 @@ class CheckService {
 services:
     app.service.check_service:
         class: AppBundle\Service\CheckService
+        public: true
         arguments: ["@session"]
 
 ```
