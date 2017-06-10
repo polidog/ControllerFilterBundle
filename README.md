@@ -1,6 +1,8 @@
 # PolidogControllerFilterBundle
 
 [![Build Status](https://travis-ci.org/polidog/ControllerFilterBundle.svg?branch=master)](https://travis-ci.org/polidog/ControllerFilterBundle)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/polidog/ControllerFilterBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/polidog/ControllerFilterBundle/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/polidog/ControllerFilterBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/polidog/ControllerFilterBundle/?branch=master)
 
 This bundle to allow you to describe filtering with annotations in the Controller class.
 
