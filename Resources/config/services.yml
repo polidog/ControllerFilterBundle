@@ -4,10 +4,18 @@ services:
         arguments:
             - "@service_container"
 
+    polidog_controller_filter.event_listener.controller_subscriber:
+        class: Polidog\ControllerFilterBundle\EventListener\ControllerSubscriber
+        arguments:
+            - "@annotation_reader"
+        tags:
+            - { name: kernel.event_subscriber }
+
     polidog_controller_filter.event_listener.filter_subscriber:
         class: Polidog\ControllerFilterBundle\EventListener\FilterSubscriber
         arguments:
-            - "@annotation_reader"
             - "@polidog_controller_filter.executor"
         tags:
             - { name: kernel.event_subscriber }
+
+

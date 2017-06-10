@@ -9,7 +9,6 @@
 namespace Polidog\ControllerFilterBundle\EventListener;
 
 
-use Doctrine\Common\Annotations\Reader;
 use Polidog\ControllerFilterBundle\Annotations\Filter;
 use Polidog\ControllerFilterBundle\Annotations\FilterInterface;
 use Polidog\ControllerFilterBundle\Executor;
@@ -19,14 +18,9 @@ use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-use Doctrine\Common\Util\ClassUtils;
 
 class FilterSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var Reader
-     */
-    private $reader;
 
     /**
      * @var Executor
@@ -40,12 +34,10 @@ class FilterSubscriber implements EventSubscriberInterface
 
     /**
      * FilterSubscriber constructor.
-     * @param Reader $reader
      * @param Executor $executor
      */
-    public function __construct(Reader $reader, Executor $executor)
+    public function __construct(Executor $executor)
     {
-        $this->reader = $reader;
         $this->executor = $executor;
     }
 
@@ -54,21 +46,24 @@ class FilterSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
         $controller = $event->getController();
-        $className = class_exists('Doctrine\Common\Util\ClassUtils') ? ClassUtils::getClass($controller[0]) : get_class($controller[0]);
 
-        $object = new \ReflectionClass($className);
-        $method = $object->getMethod($controller[1]);
+        if (!is_array($controller) && method_exists($controller, '__invoke')) {
+            $controller = [$controller, '__invoke'];
+        } else if (!is_array($controller)) {
+            return;
+        }
 
-        $classAnnotations = $this->getAnnotations($this->reader->getClassAnnotations($object));
-        $methodAnnotations = $this->getAnnotations($this->reader->getMethodAnnotations($method));
-
-        $this->executeFilters(Filter::TYPE_BEFORE, $classAnnotations, $controller[0], $event);
-        $this->executeFilters(Filter::TYPE_BEFORE, $methodAnnotations, $controller[0], $event);
-
+        $classAnnotations = $request->attributes->get('_filter_class');
+        $methodAnnotations = $request->attributes->get('_filter_method');
         $this->controller = $controller[0];
 
-        $request->attributes->set('_filter_class', $classAnnotations);
-        $request->attributes->set('_filter_method', $methodAnnotations);
+        if ($classAnnotations !== null) {
+            $this->executeFilters(Filter::TYPE_BEFORE, $classAnnotations, $this->controller, $event);
+        }
+
+        if ($methodAnnotations !== null) {
+            $this->executeFilters(Filter::TYPE_BEFORE, $methodAnnotations, $this->controller, $event);
+        }
 
     }
 
@@ -117,23 +112,12 @@ class FilterSubscriber implements EventSubscriberInterface
     }
 
 
-    private function getAnnotations(array $annotations)
-    {
-        $configurations = [];
-        foreach ($annotations as $annotation) {
-            if ($annotation instanceof FilterInterface) {
-                $configurations[] = $annotation;
-            }
-        }
-        return $configurations;
-    }
-
 
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::CONTROLLER => ['onKernelController', 10],
-            KernelEvents::VIEW => ['onKernelView', 10]
+            KernelEvents::CONTROLLER => ['onKernelController'],
+            KernelEvents::VIEW => ['onKernelView']
         ];
     }
 
