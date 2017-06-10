@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Polidog\ControllerFilterBundle\Tests\EventListener;
-
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Polidog\ControllerFilterBundle\Annotations\Filter;
@@ -35,7 +33,7 @@ class ControllerSubscriberTest extends \PHPUnit_Framework_TestCase
     public function testFilterAnnotationAtMethod()
     {
         $controller = new FilterControllerAnnotationAtMethod();
-        $event = $this->getFilterControllerEvent([$controller,'indexAction'], $this->request);
+        $event = $this->getFilterControllerEvent([$controller, 'indexAction'], $this->request);
         $this->subscriber->onKernelController($event);
 
         $annotations = $this->request->get('_filter_method');
@@ -43,11 +41,10 @@ class ControllerSubscriberTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Filter::class, $annotations[0]);
     }
 
-
     public function testMultiFilterAnnotationAtMethod()
     {
         $controller = new FilterControllerAnnotationAtMethod();
-        $event = $this->getFilterControllerEvent([$controller,'multiAction'], $this->request);
+        $event = $this->getFilterControllerEvent([$controller, 'multiAction'], $this->request);
         $this->subscriber->onKernelController($event);
 
         $annotations = $this->request->get('_filter_method');
@@ -61,7 +58,7 @@ class ControllerSubscriberTest extends \PHPUnit_Framework_TestCase
     public function testFilterAnnotationAtClass()
     {
         $controller = new FilterControllerAnnotationAtClass();
-        $event = $this->getFilterControllerEvent([$controller,'indexAction'], $this->request);
+        $event = $this->getFilterControllerEvent([$controller, 'indexAction'], $this->request);
         $this->subscriber->onKernelController($event);
 
         $annotations = $this->request->get('_filter_class');
@@ -72,7 +69,7 @@ class ControllerSubscriberTest extends \PHPUnit_Framework_TestCase
     public function testMultiFilterAnnotationAtClass()
     {
         $controller = new MultiFilterControllerAnnotationAtClass();
-        $event = $this->getFilterControllerEvent([$controller,'indexAction'], $this->request);
+        $event = $this->getFilterControllerEvent([$controller, 'indexAction'], $this->request);
         $this->subscriber->onKernelController($event);
 
         $annotations = $this->request->get('_filter_class');
@@ -83,12 +80,10 @@ class ControllerSubscriberTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-
     protected function getFilterControllerEvent($controller, Request $request)
     {
-        $mockKernel = $this->getMockForAbstractClass('Symfony\Component\HttpKernel\Kernel', array('', ''));
+        $mockKernel = $this->getMockForAbstractClass('Symfony\Component\HttpKernel\Kernel', ['', '']);
 
         return new FilterControllerEvent($mockKernel, $controller, $request, HttpKernelInterface::MASTER_REQUEST);
     }
-
 }

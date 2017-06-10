@@ -1,4 +1,5 @@
 <?php
+
 namespace Polidog\ControllerFilterBundle\Tests\Annotations;
 
 use Polidog\ControllerFilterBundle\Annotations\Filter;
@@ -23,7 +24,7 @@ class ExecutorTest extends KernelTestCase
         $filter = new Filter([
             'type' => Filter::TYPE_AFTER,
             'service' => 'executor_dummy',
-            'method' => 'exec'
+            'method' => 'exec',
         ]);
 
         $result = $e->run($filter, $kernelEvent->reveal());
@@ -42,7 +43,7 @@ class ExecutorTest extends KernelTestCase
         $filter = new Filter([
             'type' => Filter::TYPE_AFTER,
             'service' => 'executor_dummy',
-            'method' => 'exec'
+            'method' => 'exec',
         ]);
 
         $result = $executor->run($filter, $kernelEvent->reveal());

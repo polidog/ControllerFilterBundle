@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Polidog\ControllerFilterBundle\Tests\EventListener\Fixture;
-
 
 use Polidog\ControllerFilterBundle\Annotations\Filter;
 
@@ -13,6 +11,5 @@ class FilterControllerAnnotationAtClass
 {
     public function indexAction()
     {
-
     }
 }

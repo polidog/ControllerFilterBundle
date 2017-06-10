@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: polidog
  * Date: 2017/05/13
- * Time: 0:40
+ * Time: 0:40.
  */
 
 namespace Polidog\ControllerFilterBundle\Annotations;
-
 
 interface FilterInterface
 {
@@ -25,5 +24,4 @@ interface FilterInterface
      * @return string
      */
     public function getService();
-
 }

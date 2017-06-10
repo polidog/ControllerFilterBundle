@@ -1,15 +1,12 @@
 <?php
 
-
 namespace Polidog\ControllerFilterBundle\EventListener;
-
 
 use Doctrine\Common\Annotations\Reader;
 use Polidog\ControllerFilterBundle\Annotations\FilterInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-
 use Doctrine\Common\Util\ClassUtils;
 
 class ControllerSubscriber implements EventSubscriberInterface
@@ -27,7 +24,6 @@ class ControllerSubscriber implements EventSubscriberInterface
         $this->annotationReader = $annotationReader;
     }
 
-
     public function onKernelController(FilterControllerEvent $event)
     {
         $request = $event->getRequest();
@@ -36,7 +32,7 @@ class ControllerSubscriber implements EventSubscriberInterface
 
         if (!is_array($controller) && method_exists($controller, '__invoke')) {
             $controller = [$controller, '__invoke'];
-        } else if (!is_array($controller)) {
+        } elseif (!is_array($controller)) {
             return;
         }
 
@@ -58,9 +54,9 @@ class ControllerSubscriber implements EventSubscriberInterface
                 $configurations[] = $annotation;
             }
         }
+
         return $configurations;
     }
-
 
     public static function getSubscribedEvents()
     {
@@ -68,5 +64,4 @@ class ControllerSubscriber implements EventSubscriberInterface
             KernelEvents::CONTROLLER => ['onKernelController'],
         ];
     }
-
 }

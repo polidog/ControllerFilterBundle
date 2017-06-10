@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Polidog\ControllerFilterBundle\Tests\EventListener;
-
 
 use Polidog\ControllerFilterBundle\Annotations\Filter;
 use Polidog\ControllerFilterBundle\EventListener\FilterSubscriber;
@@ -51,8 +49,8 @@ class FilterSubscriberTest extends \PHPUnit_Framework_TestCase
      */
     public function testBeforeFilter(Filter $filter, $attrKey)
     {
-        $this->request->attributes->set($attrKey,[
-            $filter
+        $this->request->attributes->set($attrKey, [
+            $filter,
         ]);
 
         $event = $this->getFilterControllerEvent([$this->controller, 'indexAction'], $this->request);
@@ -70,8 +68,8 @@ class FilterSubscriberTest extends \PHPUnit_Framework_TestCase
      */
     public function testAfterFilter(Filter $filter, $attrKey)
     {
-        $this->request->attributes->set($attrKey,[
-            $filter
+        $this->request->attributes->set($attrKey, [
+            $filter,
         ]);
 
         $event = $this->getGetResponseForControllerResultEvent($this->request);
@@ -88,17 +86,17 @@ class FilterSubscriberTest extends \PHPUnit_Framework_TestCase
                 new Filter([
                     'value' => Filter::TYPE_BEFORE,
                     'service' => 'foo',
-                    'method' => 'barBeforeMethod'
+                    'method' => 'barBeforeMethod',
                 ]),
-                '_filter_method'
+                '_filter_method',
             ],
             [
                 new Filter([
                     'value' => Filter::TYPE_BEFORE,
                     'service' => 'foo',
-                    'method' => 'barBeforeClass'
+                    'method' => 'barBeforeClass',
                 ]),
-                '_filter_class'
+                '_filter_class',
             ],
         ];
     }
@@ -110,24 +108,24 @@ class FilterSubscriberTest extends \PHPUnit_Framework_TestCase
                 new Filter([
                     'value' => Filter::TYPE_AFTER,
                     'service' => 'foo',
-                    'method' => 'barAfterMethod'
+                    'method' => 'barAfterMethod',
                 ]),
-                '_filter_method'
+                '_filter_method',
             ],
             [
                 new Filter([
                     'value' => Filter::TYPE_AFTER,
                     'service' => 'foo',
-                    'method' => 'barAfterClass'
+                    'method' => 'barAfterClass',
                 ]),
-                '_filter_class'
+                '_filter_class',
             ],
         ];
     }
 
     protected function getFilterControllerEvent($controller, Request $request)
     {
-        $mockKernel = $this->getMockForAbstractClass('Symfony\Component\HttpKernel\Kernel', array('', ''));
+        $mockKernel = $this->getMockForAbstractClass('Symfony\Component\HttpKernel\Kernel', ['', '']);
 
         return new FilterControllerEvent($mockKernel, $controller, $request, HttpKernelInterface::MASTER_REQUEST);
     }

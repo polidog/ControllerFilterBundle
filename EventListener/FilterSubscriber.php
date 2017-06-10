@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: polidog
  * Date: 2017/05/12
- * Time: 19:20
+ * Time: 19:20.
  */
 
 namespace Polidog\ControllerFilterBundle\EventListener;
-
 
 use Polidog\ControllerFilterBundle\Annotations\Filter;
 use Polidog\ControllerFilterBundle\Annotations\FilterInterface;
@@ -18,10 +17,8 @@ use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-
 class FilterSubscriber implements EventSubscriberInterface
 {
-
     /**
      * @var Executor
      */
@@ -29,13 +26,13 @@ class FilterSubscriber implements EventSubscriberInterface
 
     /**
      * FilterSubscriber constructor.
+     *
      * @param Executor $executor
      */
     public function __construct(Executor $executor)
     {
         $this->executor = $executor;
     }
-
 
     public function onKernelController(FilterControllerEvent $event)
     {
@@ -51,7 +48,6 @@ class FilterSubscriber implements EventSubscriberInterface
         if ($methodAnnotations !== null) {
             $this->executeFilters(Filter::TYPE_BEFORE, $methodAnnotations, $event);
         }
-
     }
 
     public function onKernelView(GetResponseForControllerResultEvent $event)
@@ -69,12 +65,11 @@ class FilterSubscriber implements EventSubscriberInterface
         }
 
         return $event;
-
     }
 
     /**
-     * @param string $type
-     * @param array $annotations
+     * @param string      $type
+     * @param array       $annotations
      * @param KernelEvent $event
      */
     private function executeFilters(string $type, array $annotations, KernelEvent $event)
@@ -85,10 +80,10 @@ class FilterSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param string $type
+     * @param string          $type
      * @param FilterInterface $annotation
-     * @param object $controller controller object
-     * @param KernelEvent $event
+     * @param object          $controller controller object
+     * @param KernelEvent     $event
      */
     private function executeFilter(string $type, FilterInterface $annotation, KernelEvent $event)
     {
@@ -97,15 +92,11 @@ class FilterSubscriber implements EventSubscriberInterface
         }
     }
 
-
-
     public static function getSubscribedEvents()
     {
         return [
             KernelEvents::CONTROLLER => ['onKernelController'],
-            KernelEvents::VIEW => ['onKernelView']
+            KernelEvents::VIEW => ['onKernelView'],
         ];
     }
-
-
 }

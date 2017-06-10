@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: polidog
  * Date: 2017/05/12
- * Time: 19:13
+ * Time: 19:13.
  */
 
 namespace Polidog\ControllerFilterBundle\Annotations;
@@ -37,15 +37,16 @@ final class Filter implements FilterInterface
 
     /**
      * Filter constructor.
+     *
      * @param array $params
      */
     public function __construct(array $params)
     {
         if (isset($params['value'])) {
-            $this->type = (string)$params['value'];
+            $this->type = (string) $params['value'];
         }
 
-        foreach (['method','service','type'] as $target) {
+        foreach (['method', 'service', 'type'] as $target) {
             if (isset($params[$target])) {
                 $this->$target = $params[$target];
             }
@@ -75,5 +76,4 @@ final class Filter implements FilterInterface
     {
         return $this->service;
     }
-
 }
