@@ -11,7 +11,7 @@ This bundle to allow you to describe filtering with annotations in the Controlle
 install polidog/controller-filter-bundle with composer.
 
 ```
-$ composer require polidog/controller-filter-bundle "@dev"
+$ composer require polidog/controller-filter-bundle
 ```
 
 ## Configuration
