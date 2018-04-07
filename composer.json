@@ -3,7 +3,7 @@
     "type": "library",
     "require": {
         "php": ">=7.0.0",
-        "symfony/symfony": "~2.7|^3.0",
+        "symfony/symfony": "~2.7|^3.0|^4.0",
         "doctrine/common": "~2.2"
     },
     "require-dev": {
