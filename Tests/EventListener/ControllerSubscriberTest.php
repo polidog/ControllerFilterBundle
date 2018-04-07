@@ -3,6 +3,7 @@
 namespace Polidog\ControllerFilterBundle\Tests\EventListener;
 
 use Doctrine\Common\Annotations\AnnotationReader;
+use PHPUnit\Framework\TestCase;
 use Polidog\ControllerFilterBundle\Annotations\Filter;
 use Polidog\ControllerFilterBundle\EventListener\ControllerSubscriber;
 use Polidog\ControllerFilterBundle\Tests\EventListener\Fixture\FilterControllerAnnotationAtClass;
@@ -12,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class ControllerSubscriberTest extends \PHPUnit_Framework_TestCase
+class ControllerSubscriberTest extends TestCase
 {
     /**
      * @var Request

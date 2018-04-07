@@ -2,6 +2,7 @@
 
 namespace Polidog\ControllerFilterBundle\Tests\EventListener;
 
+use PHPUnit\Framework\TestCase;
 use Polidog\ControllerFilterBundle\Annotations\Filter;
 use Polidog\ControllerFilterBundle\EventListener\FilterSubscriber;
 use Polidog\ControllerFilterBundle\Executor;
@@ -11,7 +12,7 @@ use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class FilterSubscriberTest extends \PHPUnit_Framework_TestCase
+class FilterSubscriberTest extends TestCase
 {
     /**
      * @var FilterSubscriber
