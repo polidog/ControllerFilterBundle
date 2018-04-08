@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: polidog
- * Date: 2017/05/12
- * Time: 19:20.
- */
-
 namespace Polidog\ControllerFilterBundle\EventListener;
 
 use Polidog\ControllerFilterBundle\Annotations\Filter;
@@ -82,7 +75,6 @@ class FilterSubscriber implements EventSubscriberInterface
     /**
      * @param string          $type
      * @param FilterInterface $annotation
-     * @param object          $controller controller object
      * @param KernelEvent     $event
      */
     private function executeFilter(string $type, FilterInterface $annotation, KernelEvent $event)
