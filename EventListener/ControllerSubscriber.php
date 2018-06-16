@@ -28,13 +28,14 @@ class ControllerSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
         $controller = $event->getController();
-        $className = class_exists('Doctrine\Common\Util\ClassUtils') ? ClassUtils::getClass($controller[0]) : get_class($controller[0]);
 
         if (!is_array($controller) && method_exists($controller, '__invoke')) {
             $controller = [$controller, '__invoke'];
         } elseif (!is_array($controller)) {
             return;
         }
+        
+        $className = class_exists('Doctrine\Common\Util\ClassUtils') ? ClassUtils::getClass($controller[0]) : get_class($controller[0]);
 
         $object = new \ReflectionClass($className);
         $method = $object->getMethod($controller[1]);
